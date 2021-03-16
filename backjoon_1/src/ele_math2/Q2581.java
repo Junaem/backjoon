@@ -1,9 +1,10 @@
+package ele_math2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Main {
+public class Q2581 {
 	
 	public static void Primetime(int a, int b) {
 		ArrayList<Integer> arr = new ArrayList<>();
@@ -11,7 +12,9 @@ public class Main {
 		
 		for(int i=a; i<=b; i++) {
 			boolean sosu = true;
-			for(int j=2; j<Math.sqrt(i); j++) {
+			if(i==1)
+				sosu = false;
+			for(int j=2; j<=Math.sqrt(i); j++) {
 				if(i%j==0) {
 					sosu = false;
 					break;
