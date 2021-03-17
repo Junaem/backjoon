@@ -1,43 +1,43 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Main {
+public class Main{
 	
-	public static void Primetime(int a, int b) {
-		ArrayList<Integer> arr = new ArrayList<>();
-		int sum =0; 
-		
-		for(int i=a; i<=b; i++) {
-			boolean sosu = true;
-			for(int j=2; j<Math.sqrt(i); j++) {
-				if(i%j==0) {
-					sosu = false;
-					break;
-				}
-			}
-			if (sosu)
-				arr.add(i);
+	static void PrmTime(boolean[] arr) {
+		for(boolean a : arr) {
+			a=true;
 		}
-		if(arr.size()==0) {
-			System.out.println(-1);
-		}else {
-			for(int i=0;i<arr.size();i++) {
-				sum+=arr.get(i);
+		arr[0] = arr[1] = false;
+		
+		for(int i=2; i*i<arr.length; i++) {
+			if(arr[i]==false)
+				continue;
+			for(int j=i*i; j<arr.length; j+=i) {
+				arr[j] = false;
 			}
-			arr.sort(null);
-			System.out.println(sum);
-			System.out.println(arr.get(0));
 		}
 	}
 	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int m = Integer.parseInt(br.readLine());
-		int n = Integer.parseInt(br.readLine());
-	
-		Primetime(m,n);
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		boolean[] arr =new boolean[10001];
+		PrmTime(arr);
 		
+		while(t-- >0) {
+			int n = sc.nextInt();
+			int a = n/2;
+			int b = n/2;
+			
+			while(true) {
+				
+				if(arr[a] && arr[b]) {
+					System.out.println(a+" "+b);
+					break;
+				}
+				a--;
+				b++;
+			}
+			
+		}
 	}
 }
