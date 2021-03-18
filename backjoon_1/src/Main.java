@@ -1,43 +1,25 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class Main{
 	
-	static void PrmTime(boolean[] arr) {
-		for(boolean a : arr) {
-			a=true;
-		}
-		arr[0] = arr[1] = false;
-		
-		for(int i=2; i*i<arr.length; i++) {
-			if(arr[i]==false)
-				continue;
-			for(int j=i*i; j<arr.length; j+=i) {
-				arr[j] = false;
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
-		boolean[] arr =new boolean[10001];
-		PrmTime(arr);
-		
-		while(t-- >0) {
-			int n = sc.nextInt();
-			int a = n/2;
-			int b = n/2;
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+
+		while(true) {
+			ArrayList<Integer> arr = new ArrayList<>();
+			st = new StringTokenizer(br.readLine()," ");
+			arr.add(Integer.parseInt(st.nextToken()));
+			arr.add(Integer.parseInt(st.nextToken()));
+			arr.add(Integer.parseInt(st.nextToken()));
+			if(arr[0]==0) break;
 			
-			while(true) {
-				
-				if(arr[a] && arr[b]) {
-					System.out.println(a+" "+b);
-					break;
-				}
-				a--;
-				b++;
-			}
-			
+			Collections.sort(null);
 		}
 	}
 }
