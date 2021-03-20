@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//백준 난이도별에는 없는데 그냥 한번 해봄. 중간정도 했는데 상체 하체를 안 나누고 했음. 나중에 처리하길
-public class Main{
+
+public class Q13015{
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
