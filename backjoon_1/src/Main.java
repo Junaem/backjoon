@@ -1,53 +1,48 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Main{
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		int[] arr = new int[n];
+		String[][] arr = new String[n][2];
 		
 		for(int i=0; i<n; i++) {
-			arr[i] = Integer.parseInt(br.readLine());
+			arr[i][0] = br.readLine();
+			arr[i][1] = arr[i][0].length()+"";
 		}
-		Arrays.sort(arr);
+		br.close();
 		
-		int sum =0;
-		for(int i=0; i<n; i++) {
-			sum += arr[i];
-		}
-		double avg = (double)sum / (double)n;
-		System.out.println(Math.round(avg));
-		
-		System.out.println(arr[n/2]);
-		
-		int[] cnt = new int[8001];
-		for(int i : arr) {
-			cnt[i+4000]++;
-		}
-		int cbs =0;
-		for(int i=0; i<8001; i++) {
-			if(cnt[i]>cbs){
-				cbs=cnt[i];
+		Arrays.sort(arr, (e1, e2) ->{
+			if(Integer.parseInt(e1[1]) == Integer.parseInt(e2[1])) {
+				for(int i=0; i<Integer.parseInt(e1[1]);i++) {
+					if(e1[0].charAt(i)!=e2[0].charAt(i))
+						return e1[0].charAt(i) - e2[0].charAt(i);
+				}
+				return -1;
+			}else {
+				return Integer.parseInt(e1[1]) - Integer.parseInt(e2[1]);
 			}
-		}
-		ArrayList<Integer> cbList = new ArrayList<>();
-		for(int i=0; i<8001; i++) {
-			if(cnt[i]==cbs)
-				cbList.add(i-4000);
-		}
-		Collections.sort(cbList);
-		if(cbList.size()>1)
-			System.out.println(cbList.get(1));
-		else
-			System.out.println(cbList.get(0));
+		});
 		
+		boolean exst = false;
+		StringBuilder sb = new StringBuilder();
 		
-		System.out.println(arr[n-1]-arr[0]);
+		for(int i=0; i<n; i++) {
+			exst=false;
+			
+			for(int j=0; j<i; j++) {
+				if(arr[j][0].equals(arr[i][0])) {
+					exst=true;
+					break;
+				}
+			}
+			if(exst==false)
+				sb.append(arr[i][0]).append('\n');
+		}
+		System.out.println(sb);
 	}
 }
