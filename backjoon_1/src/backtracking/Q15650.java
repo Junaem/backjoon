@@ -1,25 +1,25 @@
+package backtracking;
 import java.util.Scanner;
 
-public class Main{
+public class Q15650{
 	public static StringBuilder sb = new StringBuilder();
-	public static int n, m;
 	public static int[] arr;
 	public static boolean[] visit;
 	
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		m = sc.nextInt();
+		int n = sc.nextInt();
+		int m = sc.nextInt();
 		sc.close();
 		
 		arr = new int[m];
 		visit = new boolean[n];
-		dfs(0);
+		dfs(n, m, 0);
 		System.out.println(sb);
 		
 	}
 	
-	public static void dfs(int depth) {
+	public static void dfs(int n, int m, int depth) {
 		if(depth==m) {
 			for(int a : arr) {
 				sb.append(a).append(' ');
@@ -28,8 +28,13 @@ public class Main{
 			return;
 		}
 		for(int i=0; i<n; i++) {
-			arr[depth] = i+1;
-			dfs(depth+1);
+			if(depth==0) {
+				arr[depth] = i+1;
+				dfs(n,m, depth+1);
+			}else if(i+1>arr[depth-1]){
+				arr[depth] = i+1;
+				dfs(n,m, depth+1);
+			}
 		}
 		
 		
