@@ -1,9 +1,10 @@
+package backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q2580_My{
 	public static int[][] board = new int[9][9];
 	public static boolean[] xNine = new boolean[9];
 	public static int cnt =0;
