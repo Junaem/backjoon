@@ -1,8 +1,9 @@
+package dynamic_programming1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main{
+public class Q1904_timeover{
 	
 	static int n, one;
 	static int count = 0;
