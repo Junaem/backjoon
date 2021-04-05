@@ -1,7 +1,8 @@
+package dynamic_programming1;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main{
+public class Q9461{
 	
 	static long [] dp = new long[101];
 	public static void main(String[] args) throws IOException{
