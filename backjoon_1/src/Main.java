@@ -1,41 +1,40 @@
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
 
 public class Main{
 	
-	static long [] dp = new long[101];
+	static int n;
+	static int[] stair, dp;
+	
 	public static void main(String[] args) throws IOException{
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.parseInt(br.readLine());
+		stair = new int[n+1];
+		dp = new int[n+1];
 		
-		dp[0] = 0;
-		dp[1] = 1;
-		dp[2] = 1;
-		dp[3] = 1;
-		dp[4] = 2;
-		dp[5] = 2;
-		
-		for(int i=6; i<dp.length; i++) {
-			dp[i] = 0;
+		for(int i=1; i<n+1; i++) {
+			stair[i] = Integer.parseInt(br.readLine());
 		}
+		dp[n] = stair[n];
 		
-		StringBuilder sb = new StringBuilder();
-		
-		for(int i=0; i<t; i++) {
-			int n = sc.nextInt();
-			Pado(n);
-			sb.append(Pado(n)).append('\n');
-		}
-		
-		System.out.println(sb);
+		System.out.println(Calc(0, 0));
 	}
 	
-	static long Pado(int n) {
-		
-		if(dp[n]==0) {
-			dp[n] = Pado(n-1) + Pado(n-5);
+	static int Calc(int whr, int stk) {
+		if(whr>n)
+			return -300;
+		if(whr==n) {
+			return dp[n];
 		}
-		return dp[n];
 		
+		if(stk==1) {
+			dp[whr] = Calc(whr+2, 0) + stair[whr];
+		}else if(whr ==0 ) 
+			dp[whr] = Math.max(Calc(whr+1, 0), Calc(whr+2, 0)) + stair[whr];
+		else{
+			dp[whr] = Math.max(Calc(whr+1, 1), Calc(whr+2, 0)) + stair[whr];
+		}
+		return dp[whr];
 	}
+	
+
 }
