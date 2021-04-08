@@ -1,6 +1,7 @@
+package dynamic_programming1;
 import java.util.Scanner;
 
-public class Main{
+public class Q1463_copy{
 	static int n;
 	static Integer[] dp;
 	
