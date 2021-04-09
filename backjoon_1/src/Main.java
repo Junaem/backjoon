@@ -1,35 +1,31 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main{
-	static int n;
+	static int num;
+	static int[] arr;
 	static Integer[] dp;
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		sc.close();
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		num = Integer.parseInt(br.readLine());
+		arr = new int[num+1];
+		dp = new Integer[num+1];
 		
-		dp = new Integer[n+1];
-		dp[0] = dp[1] = 0;
+		for(int i=1; i<num+1; i++) {
+			arr[i] = Integer.parseInt(br.readLine());
+		}
 		
-		System.out.println(Calc(n));
+		dp[0] = 0;
+		dp[1] = arr[1];
+		
+		System.out.println(Drink(0));
 	}
 	
-	
-	static int Calc(int n) {
-
+	static int Drink(int n) {
 		if(dp[n]==null) {
-			
-			if(n%6==0) {
-				dp[n] = Math.min(Calc(n-1), Math.min(Calc(n/3), Calc(n/2))) + 1;
-			}
-			else if(n%3==0) 
-				dp[n] = Math.min(Calc(n/3),Calc(n-1)) + 1;
-			else if(n%2==0) 
-				dp[n] = Math.min(Calc(n/2),Calc(n-1)) + 1;
-			else
-				dp[n] = Calc(n-1) +1;
+			dp[n] = Math.max(Drink(n+3) + dp[n+1], Drink(n+2));
 		}
+		
 		return dp[n];
+		
 	}
 }
