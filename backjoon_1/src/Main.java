@@ -1,38 +1,38 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
 
 public class Main{
-	static int N;
-	static int[][] arr;
-	static Integer[] dp;
+	static String A,B;
+	static Integer[][] dp;
 	
-	public static void main(String [] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		arr= new int[N+1][2];
-		dp = new Integer[N+1];
-		StringTokenizer st;
+		A = br.readLine();
+		B = br.readLine();
+		dp = new Integer[A.length()][B.length()];
+		for(int i=0; i<B.length(); i++)
+			dp[A.length()-1][i] = 1;
 		
-		for(int i=1; i<N+1; i++) {
-			st= new StringTokenizer(br.readLine(), " ");
-			arr[i][0] = Integer.parseInt(st.nextToken());
-			arr[i][1] = Integer.parseInt(st.nextToken());
+		int max =0;
+		for(int i=0; i<A.length(); i++) {
+			max = Math.max(max, Calc(i,0));
 		}
-		Calc(0);
+		System.out.println(max);
 	}
 	
-	static int Calc(int day) {
-		if(day<0) {
-			return 0;
+	static int Calc(int a, int b) {
+		if(dp[a][b]==null) {
+			dp[a][b] = 0;
+			
+			for(int i=b; i<B.length(); i++) {
+				if(A.charAt(a)==B.charAt(i)) {
+					if(i+1<B.length())
+						dp[a][b] = Math.max(dp[a][b], Calc(a+1, i+1)+1);
+					else
+						dp[a][b] = 1;
+				}
+			}
 		}
 		
-		if(dp[day] ==null) {
-			for(int i=day; i<N; i++)
-			dp[day] = Math.max(Calc(i), Calc(day+arr[day][0]) +arr[day][1] );
-		}
-		
-		return dp[day];
+		return dp[a][b];
 	}
 }

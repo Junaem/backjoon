@@ -1,6 +1,7 @@
+package backtracking;
 import java.util.Scanner;
 
-public class Main2{
+public class Q15649_2{
 	static StringBuilder sb = new StringBuilder();
 	static int N, M;
 	static int[] arr;
