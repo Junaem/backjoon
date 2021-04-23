@@ -1,8 +1,9 @@
+package N_dfs;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Main{
+public class Q1260{
 	static int N, M;
 	static boolean[][] con;
 	static boolean[] visit;

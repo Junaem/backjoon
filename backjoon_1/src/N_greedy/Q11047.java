@@ -1,4 +1,5 @@
-package greedy_n;
+package N_greedy;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

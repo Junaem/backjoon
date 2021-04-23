@@ -1,7 +1,8 @@
+package N_dynamic;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q11052_my{
 	static int N;
 	static int[] arr;
 	static int[][] dp;
