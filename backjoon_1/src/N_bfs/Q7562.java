@@ -1,3 +1,4 @@
+package N_bfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q7562{
 	static int N;
 	static int map[][];
 	static int[] mX = new int[] {-2, -2, -1, -1, 1, 1, 2, 2};
