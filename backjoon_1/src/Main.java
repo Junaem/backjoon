@@ -6,69 +6,57 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main{
-	static int N;
-	static int map[][];
-	static int[] mX = new int[] {-2, -2, -1, -1, 1, 1, 2, 2};
-	static int[] mY = new int[] { 1, -1, 2, -2, 2, -2, 1, -1};
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int T = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		boolean[][] map = new boolean[N+1][M+1];
+		int[][] dp = new int[N+1][M+1];
+		int[] nP = new int[] {-1, 0, 1, 0};
+		int[] mP = new int[] {0, -1, 0, 1};
 		
-		for(int i=0; i<T; i++) {
-			N = Integer.parseInt(br.readLine());
-			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-			int n = Integer.parseInt(st.nextToken());
-			int m = Integer.parseInt(st.nextToken());
-			
-			st = new StringTokenizer(br.readLine(), " ");
-			int o = Integer.parseInt(st.nextToken());
-			int p = Integer.parseInt(st.nextToken());
-			
-			Calc(n,m,o,p);
+		for(int i=1; i<=N; i++) {
+			String str = br.readLine();
+			for(int j=1; j<=M; j++) {
+				if(str.charAt(j-1)=='1')
+					map[i][j] = true;
+			}
 		}
-	}
-	
-	static void Calc(int n, int m, int o, int p) {
-		if(n==o && m==p) {
-			System.out.println(0);
-			return;
-		}
-		
-		int[][] dp = new int[N][N];
-		boolean[][] visit = new boolean[N][N];
+		dp[1][1] = 1;
 		Queue<Integer> q= new LinkedList<>();
-		dp[n][m] =0;
-		q.offer(n);
-		q.offer(m);
+		
+		q.offer(1);
+		q.offer(1);
 		
 		while(!q.isEmpty()) {
-			int a = q.poll();
-			int b = q.poll();
+			int n = q.poll();
+			int m = q.poll();
 			
-			if(visit[a][b]) 
-				continue;
-			visit[a][b] = true;
-			
-			if(a==o && b==p) {
-				System.out.println(dp[a][b]);
-				return;
+			if(n==N && m==M) {
+				System.out.println(dp[n][m]);
+				System.exit(0);
 			}
 			
-			for(int i=0 ; i<8; i++) {
-				int nA = a+mX[i];
-				int nB = b+mY[i];
+			for(int i=0; i<4; i++) {
+				int nN = n+ nP[i];
+				int nM = m+ mP[i];
 				
-				if(0<=nA && nA<N && 0<=nB && nB<N) {
-					q.offer(nA);
-					q.offer(nB);
-					dp[nA][nB] = dp[a][b]+1;
+				if(nN>0 && nM>0 && nN<N+1 && nM<M+1) {
+					if(map[nN][nM]) {
+						dp[nN][nM]=dp[n][m]+1;
+						map[nN][nM]=false;
+						q.offer(nN);
+						q.offer(nM);
+					}
+						
 				}
+				
 			}
 			
 			
 			
 		}
-		
 		
 		
 	}
