@@ -1,9 +1,10 @@
+package N_dynamic;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q1915_copy{
 	static int N, M;
 	static int[][] sqr, dp;
     public static void main(String[] args) throws IOException{
