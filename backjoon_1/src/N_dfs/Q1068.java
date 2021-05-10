@@ -1,9 +1,10 @@
+package N_dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q1068{
 	static int N, M;
 	static boolean[][] node;;
 	static boolean[] del, root;
