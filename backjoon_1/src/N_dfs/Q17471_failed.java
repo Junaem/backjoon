@@ -1,9 +1,10 @@
+package N_dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q17471_failed{
 	static int N, tmp, min;
 	static int sum = 0;
 	static int[] Pop;
