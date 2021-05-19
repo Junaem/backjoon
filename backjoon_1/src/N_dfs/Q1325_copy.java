@@ -1,10 +1,11 @@
+package N_dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Main{
+public class Q1325_copy{
 	static ArrayList<Integer>[] arr = new ArrayList[10001];
 	static boolean[] visited = new boolean[10001];
 	static int[] ans = new int[10001];
@@ -60,7 +61,7 @@ public class Main{
 	public static void main(String[] args) {
 		sc.init();
 		
-		new Main().solve();
+		new Q1325_copy().solve();
 	}
 	
 	static class sc{
