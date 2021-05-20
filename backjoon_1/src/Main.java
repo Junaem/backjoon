@@ -1,93 +1,56 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class Main{
-	static ArrayList<Integer>[] arr = new ArrayList[10001];
-	static boolean[] visited = new boolean[10001];
-	static int[] ans = new int[10001];
-	static int cnt =0;
-	
-	void solve() {
-		StringBuilder sb = new StringBuilder();
-		int n = sc.nextInt();
-		int m = sc.nextInt();
-		
-		for(int i=1; i<=n; i++) {
-			arr[i] = new ArrayList<Integer>();
-		}
-		
-		for(int i=0; i<m; i++) {
-			int v1 = sc.nextInt();
-			int v2 = sc.nextInt();
-			
-			arr[v1].add(v2);
-		}
-		
-		int max =0;
-		
-		for(int i=1; i<=n; i++) {
-			visited = new boolean[10001];
-			dfs(i);
-		}
-		
-		for(int i=1; i<=n; i++) {
-			max = Math.max(max, ans[i]);
-		}
-		
-		for(int i=1; i<=n; i++) {
-			if(ans[i] == max)
-				sb.append(i).append(' ');
-		}
-		System.out.println(sb);
-	}
-	
-	public static void dfs(int i) {
-		visited[i] = true;
-		
-		for(int a : arr[i]) {
-			if(!visited[a]) {
-				ans[a]++;
-				dfs(a);
-			}
-		}
-	}
-	
-	
-	
-	public static void main(String[] args) {
-		sc.init();
-		
-		new Main().solve();
-	}
-	
-	static class sc{
-		static BufferedReader br;
-		static StringTokenizer st;
-		
-		static void init() {
-			br = new BufferedReader(new InputStreamReader(System.in));
-			st = new StringTokenizer("");
-		}
-		
-		static String readLine() {
-			try {
-				return br.readLine();
-			} catch (IOException e) {
-			}
-			return null;
-		}
-		
-		static int nextInt() {
-			while(!st.hasMoreTokens()) {
-				try {
-					st = new StringTokenizer(br.readLine());
-				} catch(IOException e) {
-				}
-			}
-			return Integer.parseInt(st.nextToken());
-		}
-	}
+public class Main {
+    public static int[] visit = new int[10001];
+    public static List<Integer> m[];
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+
+        int array[] = new int[N + 1];
+        m = new ArrayList[N+1];
+        for(int i=1;i<=N;++i){
+            m[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < M; ++i) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            m[a].add(b);
+        }
+
+        for (int i=1;i<=N;++i) {
+            Arrays.fill(visit, 0);
+            if(m[i].size()!=0){
+                search(i,array);
+            }
+        }
+
+        int max = 0;
+        for (int i = 1; i <= N; ++i) {
+            if (max <= array[i]) {
+                max = array[i];
+            }
+        }
+
+        for (int i = 1; i <= N; ++i) {
+            if (array[i] == max) {
+                System.out.print(i + " ");
+            }
+        }
+
+    }
+
+    public static void search(int node, int[] array) {
+        visit[node] = 1;
+        for (int i : m[node]) {
+            if(visit[i]!=1){
+                array[i]++;
+                search(i, array);
+            }
+
+        }
+    }
 }
