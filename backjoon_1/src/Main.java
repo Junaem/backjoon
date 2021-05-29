@@ -1,34 +1,91 @@
+import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main{
-	static int N;
-	static int[] arr, dp;
+	static int size = 2;
+	static int N, fishes;
+	static int need = 2;
+	static int time =0;
+	static int[][] map;
+	static Point drr; 
+	static int[] mX = {0, -1, 1, 0};
+	static int[] mY = {-1, 0, 0, 1};
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		N = Integer.parseInt(br.readLine());
-		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		arr = new int[N];
-		dp = new int[N];
-		int max =1;
+		map = new int[N][N];
+		fishes =0;
 		
 		for(int i=0; i<N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
-			dp[i] = 1;
-			for(int j=0; j<i; j++) {
-				if(arr[j]<arr[i]) {
-					dp[i] = Math.max(dp[i], dp[j]+1);
-					max = Math.max(max, dp[i]);
-				}
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			for(int j=0; j<N; j++) {
+				map[j][i] = Integer.parseInt(st.nextToken());
+				if(map[j][i] == 9)
+					drr = new Point(j,i);
+				else if(map[j][i]>0)
+					fishes++;
 			}
 		}
-		bw.write(max + "");
-		bw.close();
+		play();
+	}
+	
+	static void play() {
+		while(fishes>0)
+			eat();
+		System.out.println(time);
+	}
+	
+	static void eat() {
+		Point whr = search();
+		if(whr.x==100) {
+			fishes=0;
+			return;
+		}
+		int sec = Math.abs(whr.x - drr.x) + Math.abs(whr.y-drr.y);
+		time += sec;
+		
+		map[drr.x][drr.y] = 0; 
+		map[whr.x][whr.y] = 9;
+		drr = whr;
+		need--;
+		fishes--;
+		if(need==0) {
+			size++;
+			need = size;
+		}
+	}
+	
+	static Point search() {
+		Queue<Point> q = new LinkedList<>();	
+		q.offer(drr);
+		
+		
+		while(!q.isEmpty()) {
+			int x = q.peek().x;
+			int y = q.peek().y;
+			q.poll();
+			for(int i=0; i<4; i++) {
+				int nx = x+mX[i];
+				int ny = y+mY[i];
+				
+				if(nx>=0 && ny>=0 && nx<N && ny<N) {
+					if(map[nx][ny]!=9 && map[nx][ny]<=size) {
+						q.offer(new Point(nx, ny));
+						if(map[nx][ny]!=0 && map[nx][ny]<size)
+							return new Point(nx, ny);
+					}
+				}				
+			}
+			
+		}
+		return new Point(100, 100);
+		
+		
 	}
 }
