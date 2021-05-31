@@ -1,91 +1,51 @@
-import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main{
-	static int size = 2;
-	static int N, fishes;
-	static int need = 2;
-	static int time =0;
-	static int[][] map;
-	static Point drr; 
-	static int[] mX = {0, -1, 1, 0};
-	static int[] mY = {-1, 0, 0, 1};
 	
-	public static void main(String[] args) throws IOException{
+	public static final int max_val = 401, max_int = 21;
+	public static int n, shark_x, shark_y, min_dist, min_x, min_y, result, eat_cnt = 0, shark_size =2;
+	public static int[][] map, check;
+	public static int[] dx = {0, 0, 1, -1}, dy = {-1, 1, 0, 0};
+	
+	public static void main(String[] args) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		map = new int[N][N];
-		fishes =0;
 		
-		for(int i=0; i<N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-			for(int j=0; j<N; j++) {
-				map[j][i] = Integer.parseInt(st.nextToken());
-				if(map[j][i] == 9)
-					drr = new Point(j,i);
-				else if(map[j][i]>0)
-					fishes++;
-			}
-		}
-		play();
-	}
-	
-	static void play() {
-		while(fishes>0)
-			eat();
-		System.out.println(time);
-	}
-	
-	static void eat() {
-		Point whr = search();
-		if(whr.x==100) {
-			fishes=0;
-			return;
-		}
-		int sec = Math.abs(whr.x - drr.x) + Math.abs(whr.y-drr.y);
-		time += sec;
+		n = Integer.parseInt(br.readLine());
+		map = new int[n+1][n+1];
+		check = new int[n+1][n+1];
 		
-		map[drr.x][drr.y] = 0; 
-		map[whr.x][whr.y] = 9;
-		drr = whr;
-		need--;
-		fishes--;
-		if(need==0) {
-			size++;
-			need = size;
-		}
-	}
-	
-	static Point search() {
-		Queue<Point> q = new LinkedList<>();	
-		q.offer(drr);
-		
-		
-		while(!q.isEmpty()) {
-			int x = q.peek().x;
-			int y = q.peek().y;
-			q.poll();
-			for(int i=0; i<4; i++) {
-				int nx = x+mX[i];
-				int ny = y+mY[i];
+		for(int i=1; i<=n; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for(int j=1; i<=n; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
 				
-				if(nx>=0 && ny>=0 && nx<N && ny<N) {
-					if(map[nx][ny]!=9 && map[nx][ny]<=size) {
-						q.offer(new Point(nx, ny));
-						if(map[nx][ny]!=0 && map[nx][ny]<size)
-							return new Point(nx, ny);
-					}
-				}				
+				if(map[i][j]==9) {
+					shark_x= i;
+					shark_y= j;
+					map[i][j]=0;
+				}
 			}
-			
 		}
-		return new Point(100, 100);
 		
-		
+		while(true) {
+			init_check();
+			
+			bfs(shark_x, shark_y);
+			
+			if(min_x != max_int && min_y != max_int) {
+				result += check[min_x][min_y];// 체크가 가는데 필요한 시간
+				
+				eat_cnt++;
+				
+				if(eat_cnt == shark_size) {
+					shark_size++;
+					eat_cnt =0;
+				}
+				
+				map[min_x][min_y]=0;
+			}
+		}
 	}
 }
