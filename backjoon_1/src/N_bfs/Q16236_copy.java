@@ -1,9 +1,10 @@
+package N_bfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main{
+public class Q16236_copy{
 	
 	public static final int max_val = 401, max_int = 21;
 	public static int n, shark_x, shark_y, min_dist, min_x, min_y, result, eat_cnt = 0, shark_size =2;
